@@ -20,7 +20,7 @@ const AdminUserList = () => import('@/views/AdminUserList')
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/login', name: 'login', component: Login },
+  { path: '/login', name: 'login', component: Login, meta: { isPublic: true } }, // 可以公开访问的
   {
     path: '/',
     name: 'main',
@@ -55,6 +55,13 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (!to.meta.isPublic && !localStorage.token) {
+    return next('/login')
+  }
+  next()
 })
 
 export default router
