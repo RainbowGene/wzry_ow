@@ -49,4 +49,19 @@ module.exports = app => {
     file.url = `http://localhost:3000/uploads/${file.filename}`
     res.send(file)
   })
+
+  // 登录接口
+  app.post('/admin/api/login', async (req, res) => {
+    const { username, password } = req.body
+    // 1.验证用户  2.效验密码   3.返回token
+    const AdminUser = require('../../modules/AdminUser')
+    const user = await AdminUser.findOne({ username }).select('+password')  // 模型中我们设置了 select:false
+    if (!user) return res.status(422).send({ msg: '用户不存在!' })
+    const isValid = require('bcrypt').compareSync(password, user.password)
+    if (!isValid) return res.status(422).send({ msg: '密码错误!' })
+    // 生成token   npm i jsonwebtoken
+    const jwt = require('jsonwebtoken')
+    const token = jwt.sign({ id: user._id }, app.get('secret')) // 可以放多个键值对
+    res.send({ token, username: user.username })
+  })
 }
