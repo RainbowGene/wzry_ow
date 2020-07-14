@@ -16,7 +16,12 @@
         </el-select>
       </el-form-item>
       <el-form-item label="内容">
-        <vue-editor v-model="model.body"></vue-editor>
+        <vue-editor
+          id="editor"
+          useCustomImageHandler
+          @image-added="handleImageAdded"
+          v-model="model.body"
+        ></vue-editor>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" native-type="submit">保存</el-button>
@@ -31,7 +36,9 @@ import { VueEditor } from "vue2-editor";
 export default {
   data() {
     return {
-      model: {},
+      model: {
+        body: "此处输入"
+      },
       categories: []
     };
   },
@@ -69,6 +76,14 @@ export default {
         type: "success",
         message: "保存成功"
       });
+    },
+    // 编辑器中的图片上传,编辑器中一定要有 id="editor"
+    async handleImageAdded(file, Editor, cursorLocation, resetUploader) {
+      let formData = new FormData();
+      formData.append("file", file); // 定义字段名
+      const res = await this.$http.post("upload", formData);
+      Editor.insertEmbed(cursorLocation, "image", res.data.url);
+      resetUploader();
     }
   }
 };
