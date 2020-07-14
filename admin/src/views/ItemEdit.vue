@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>{{id?'编辑物品':'新建物品'}}</h3>
+    <h3>{{id?'编辑':'新建'}}物品</h3>
     <el-form label-width="120px" @submit.native.prevent="save">
       <!-- <el-form-item label="父级">
         <el-select v-model="model.parent">
@@ -17,6 +17,7 @@
           :show-file-list="false"
           :on-success="afterUpload"
           :before-upload="beforeAvatarUpload"
+          :headers="getAuthHeader()"
         >
           <img v-if="model.icon" :src="model.icon" class="avatar" />
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>

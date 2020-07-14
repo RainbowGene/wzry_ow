@@ -16,7 +16,6 @@ const AdList = () => import('@/views/AdList')
 const AdminUserEdit = () => import('@/views/AdminUserEdit')
 const AdminUserList = () => import('@/views/AdminUserList')
 
-
 Vue.use(VueRouter)
 
 const routes = [
@@ -57,6 +56,7 @@ const router = new VueRouter({
   routes
 })
 
+// 客户端路由限制
 router.beforeEach((to, from, next) => {
   if (!to.meta.isPublic && !localStorage.token) {
     return next('/login')

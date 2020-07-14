@@ -50,6 +50,8 @@ module.exports = app => {
   const upload = multer({
     dest: __dirname + '/../../uploads' // 目标地址
   })
+  // 在这里使用请求效验auth()时，由于我们前端使用的el-upload传图片使用的是el底层的ajax传输，
+  // 没有经过我们自定的请求拦截，header中没有携带 authorizetion,需要在全局中为el-upload加入该属性
   app.post('/admin/api/upload', auth(), upload.single('file'), async (req, res) => {
     const file = req.file
     file.url = `http://localhost:3000/uploads/${file.filename}`
@@ -71,9 +73,9 @@ module.exports = app => {
   })
 
   // 错误处理（中间件）
-  app.use(async (err, req, res, next) => {
-    res.status(err.statusCode || 500).send({
-      msg: err.message
-    })
-  })
+  // app.use(async (err, req, res, next) => {
+  //   res.status(err.statusCode || 500).send({
+  //     msg: err.message
+  //   })
+  // })
 }

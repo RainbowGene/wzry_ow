@@ -2,7 +2,7 @@
   <el-container style="height: 100vh">
     <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
       <!--el-menu中 :default-openeds="['1', '3']"  可以默认展开 1 3 unique-opened 一次只展开一个 -->
-      <el-menu router :default-openeds="['3']" unique-opened :default-active="$route.path">
+      <el-menu router unique-opened :default-active="$route.path">
         <el-submenu index="1">
           <template slot="title">
             <i class="el-icon-message"></i>内容管理
@@ -56,12 +56,13 @@
         <el-dropdown>
           <i class="el-icon-setting" style="margin-right: 15px"></i>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>查看</el-dropdown-item>
-            <el-dropdown-item>新增</el-dropdown-item>
-            <el-dropdown-item>删除</el-dropdown-item>
+            <el-dropdown-item>个人信息</el-dropdown-item>
+            <div @click="outlog">
+              <el-dropdown-item>退出</el-dropdown-item>
+            </div>
           </el-dropdown-menu>
         </el-dropdown>
-        <span>王小虎</span>
+        <span>{{username}}</span>
       </el-header>
 
       <el-main>
@@ -74,14 +75,18 @@
 <script>
 export default {
   data() {
-    const item = {
-      date: "2016-05-02",
-      name: "王小虎",
-      address: "上海市普陀区金沙江路 1518 弄"
-    };
     return {
-      tableData: Array(20).fill(item)
+      username: ""
     };
+  },
+  created() {
+    this.username = localStorage.username;
+  },
+  methods: {
+    outlog() {
+      localStorage.clear();
+      this.$router.push("login");
+    }
   }
 };
 </script>

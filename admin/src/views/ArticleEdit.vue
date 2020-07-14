@@ -37,7 +37,7 @@ export default {
   data() {
     return {
       model: {
-        body: "此处输入"
+        body: ""
       },
       categories: []
     };

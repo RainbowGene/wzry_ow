@@ -29,6 +29,7 @@ export default {
       if (data.token) {
         // sessionStorage.token = data.token; // 浏览器关闭后清空token
         localStorage.token = data.token; //浏览器关闭后不清空token :localStorage.clear() 手动清空
+        localStorage.username = data.username;
         this.$router.push("/");
         this.$message.success(`欢饮您,${data.username}`);
       }
