@@ -13,6 +13,7 @@ app.use('/uploads', express.static(__dirname + '/uploads'))
 
 require('./db/db')(app)
 require('./route/admin')(app)
+require('./route/web')(app)
 
 app.listen(3000, () => {
   console.log('服务器启动在 3000')

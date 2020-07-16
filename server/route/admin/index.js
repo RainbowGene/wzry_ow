@@ -2,7 +2,9 @@ module.exports = app => {
   const express = require('express')
   // 生成token   npm i jsonwebtoken
   const jwt = require('jsonwebtoken')
-  const AdminUser = require('../../modules/AdminUser')
+  // const AdminUser = require('../../models/AdminUser')
+  const mongoose = require('mongoose')
+  const AdminUser = mongoose.model('AdminUser')
   const assert = require('http-assert')
   const router = express.Router({
     nergeParams: true
@@ -25,7 +27,7 @@ module.exports = app => {
     if (req.Model.modelName === 'Category') { // 需要关联查询
       queryOptions.populate = 'parent'
     }
-    const items = await req.Model.find().setOptions(queryOptions).limit(10)
+    const items = await req.Model.find().setOptions(queryOptions).limit(100)
     res.send(items)
   })
   // 单个资源详情
@@ -41,7 +43,8 @@ module.exports = app => {
   app.use('/admin/api/rest/:resource', auth(), async (req, res, next) => {
     // 中间件
     const modelName = require('inflection').classify(req.params.resource)
-    req.Model = require(`../../modules/${modelName}`) // 挂载一个属性为Model
+    // req.Model = require(`../../models/${modelName}`) // 挂载一个属性为Model
+    req.Model = mongoose.model(`${modelName}`)
     next()
   }, router)
 

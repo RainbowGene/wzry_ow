@@ -8,6 +8,8 @@ const schems = new mongoose.Schema({
     ref: 'Category' // 关联本身
   }],
   body: { type: String }
+}, {
+  timestamps: true  // 自动存入创建和修改的事件戳
 })
 
 module.exports = mongoose.model('Article', schems)

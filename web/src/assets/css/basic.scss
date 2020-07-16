@@ -1,0 +1,204 @@
+@import './var.scss';
+
+/* -----重置基本样式----- */
+* {
+  box-sizing: border-box;
+  outline: none;
+}
+
+html {
+  font-size: 13px;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.2rem;
+  background: #F1F1F1;
+  -webkit-font-smoothing: autiased;
+}
+
+a {
+  color: #999;
+  text-decoration: none;
+}
+
+/*-------行高------*/
+p {
+  line-height: 1.5em;
+}
+
+/* -----定义颜色----- */
+@each $colorKey,
+$color in $colors {
+  .text-#{$colorKey} {
+    color: $color
+  }
+
+  .bg-#{$colorKey} {
+    background: $color;
+  }
+}
+
+/* -----文本对齐方式/大小的工具类----- */
+@each $var in (left, center, right) {
+  .text-#{$var} {
+    text-align: $var !important; // !important 强制使用
+  }
+}
+
+
+@each $sizeKey,
+$size in $font-sizes {
+  .fs-#{$sizeKey} {
+    font-size: $size * $base-font-basic;
+  }
+}
+
+/* -----flex 布局----- */
+.d-flex {
+  display: flex;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+// 主轴对齐
+@each $key,
+$val in $flex-jc {
+  .jc-#{$key} {
+    justify-content: $val;
+  }
+}
+
+// 交叉轴对齐方式
+@each $key,
+$val in $flex-ai {
+  .ai-#{$key} {
+    align-items: $val;
+  }
+}
+
+// 除了默认水平排列，还有垂直的
+.flex-column {
+  flex-direction: column;
+}
+
+// 拉伸:沾满剩余容器
+.flex-1 {
+  flex: 1
+}
+
+/* -----常用边距定义----- */
+@each $typeKey,
+$type in $spacing-types {
+
+  // .m-1
+  @each $sizeKey,
+  $size in $spacing-sizes {
+
+    .#{$typeKey}-#{$sizeKey} {
+      #{$type}: $size * $spacing-base-size;
+    }
+  }
+
+  // .mx-1 : 水平边距
+  @each $sizeKey,
+  $size in $spacing-sizes {
+
+    .#{$typeKey}x-#{$sizeKey} {
+      #{$type}-left: $size * $spacing-base-size;
+      #{$type}-right: $size * $spacing-base-size;
+    }
+  }
+
+  // .my:垂直边距
+  @each $sizeKey,
+  $size in $spacing-sizes {
+
+    .#{$typeKey}y-#{$sizeKey} {
+      #{$type}-top: $size * $spacing-base-size;
+      #{$type}-bottom: $size * $spacing-base-size;
+    }
+  }
+
+  // .mt-1
+  @each $directionKey,
+  $direction in $spacing-directions {
+
+    @each $sizeKey,
+    $size in $spacing-sizes {
+
+      .#{$typeKey}#{$directionKey}-#{$sizeKey} {
+        #{$type}-#{$direction}: $size * $spacing-base-size;
+      }
+    }
+  }
+}
+
+
+/* -----button----- */
+.btn {
+  border: none;
+  border-radius: 0.1538rem;
+  font-size: map-get($font-sizes, 'sm') * $base-font-basic;
+  padding: 0.2rem 0.6rem;
+}
+
+/* -----导航菜单----- */
+.nav {
+  .nav_item {
+    border-bottom: 3px solid transparent;
+    padding-bottom: 0.3rem;
+
+    &.active {
+      border-bottom: 3px solid #fff;
+    }
+  }
+}
+
+/*-----width------*/
+.w-100 {
+  width: 100%;
+}
+
+/*-----height------*/
+.h-100 {
+  height: 100%;
+}
+
+/*-----精灵图------*/
+.sprite {
+  background: url(../img/index.png) no-repeat 0 0;
+  background-size: 28.8462rem; // 375px
+  display: inline-block;
+
+  // www.spritecow.com 可以上传图片选择图标定位，然后转成rem
+  &.sprite-news {
+    width: 1.7692rem;
+    height: 1.5385rem;
+    background-position: 63.546% 15.517%;
+  }
+
+  &.sprite-arrow {
+    width: 0.7692rem;
+    height: 0.7692rem;
+    background-position: 38.577% 52.076%;
+  }
+}
+
+/*-----文本溢出隐藏-----*/
+.text-ellipsis {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// border 边框
+@each $dir in (top, right, bottom, left) {
+  .border-#{$dir} {
+    border-#{$dir}: 1px solid $border-color;
+  }
+}

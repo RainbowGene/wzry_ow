@@ -66,7 +66,10 @@
       </el-header>
 
       <el-main>
-        <router-view></router-view>
+        <!-- 两个路由使用一个组件，切换时会出bug，这里应该使用路由路径区分
+             路由切换时即使组件相同它也会重载组件
+        -->
+        <router-view :key="$route.path"></router-view>
       </el-main>
     </el-container>
   </el-container>

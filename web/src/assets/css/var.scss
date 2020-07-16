@@ -1,0 +1,47 @@
+/* 存放变量
+  将style.scss 中的变量全部放到此处定义，然后将此文件导入style.scss
+  以后需要使用这些变量的模块直接引入该文件
+*/
+
+
+/* -----定义颜色----- */
+$colors:(primary:#db9e3f,
+  "white":#fff,
+  "light":#f9f9f9,
+  "light-1":#d4d9d1,
+  "grey":#999,
+  "grey-1":#666,
+  "info":#4b67af,
+  "info-1":#4394e4,
+  dark-1:#343440,
+  dark:#222,
+  "black":#000);
+
+// 边框色
+$border-color:map-get($colors, 'light-1');
+
+// font-size: vscode插件 px to rem 可以换算
+$base-font-basic:1rem;
+$font-sizes:(xxs:0.6154, s:0.7692, sm:0.9231, md:1, lg:1.0769, xl:1.2308);
+
+// 主轴对齐方式
+$flex-jc: (start: flex-start,
+  end:flex-end,
+  center:center,
+  between:space-between,
+  around:space-around,
+);
+
+// 交叉轴对齐方式
+$flex-ai: (start: flex-start,
+  end:flex-end,
+  center:center,
+  stretch:stretch,
+);
+
+/* -----常用边距定义----- */
+// 0-5:6个等级
+$spacing-types:(m:margin, p:padding);
+$spacing-directions:(t:top, b:bottom, l:left, r:right);
+$spacing-base-size:1rem;
+$spacing-sizes:(0:0, 1:0.25, 2:0.5, 3:1, 4:1.5, 5:3);

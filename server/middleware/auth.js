@@ -1,6 +1,8 @@
 module.exports = options => {
   const jwt = require('jsonwebtoken')
-  const AdminUser = require('../modules/AdminUser')
+  // const AdminUser = require('../models/AdminUser')
+  const mongoose = require('mongoose')
+  const AdminUser = mongoose.model('AdminUser')
   const assert = require('http-assert')
   return async (req, res, next) => {
     // 校验用户是否登录（获取请求头中的token）
