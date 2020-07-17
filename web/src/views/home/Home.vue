@@ -50,7 +50,9 @@
     <list-card icon="card-hero" :categories="heroList" title="英雄列表">
       <template #items="{category}">
         <div class="d-flex flex-wrap">
-          <div
+          <router-link
+            tag="div"
+            :to="`/hero/${hero._id}`"
             class="p-2 text-center"
             style="width:20%"
             v-for="(hero,i) in category.heroList"
@@ -58,7 +60,7 @@
           >
             <img class="w-100" :src="hero.avatar" alt />
             <div>{{hero.name}}</div>
-          </div>
+          </router-link>
         </div>
       </template>
     </list-card>

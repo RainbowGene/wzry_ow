@@ -23,6 +23,19 @@
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
           </el-form-item>
+          <el-form-item label="封面">
+            <el-upload
+              class="banner-uploader"
+              :action="$http.defaults.baseURL+'/upload'"
+              :show-file-list="false"
+              :on-success="res => $set(model,'banner',res.url)"
+              :before-upload="beforeAvatarUpload"
+              :headers="getAuthHeader()"
+            >
+              <img v-if="model.banner" :src="model.banner" class="banner" />
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+          </el-form-item>
           <el-form-item label="职业">
             <el-select v-model="model.categories" multiple>
               <el-option
@@ -88,6 +101,12 @@
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
               </el-form-item>
+              <el-form-item label="冷却值">
+                <el-input v-model="item.delay"></el-input>
+              </el-form-item>
+              <el-form-item label="消耗">
+                <el-input v-model="item.cost"></el-input>
+              </el-form-item>
               <el-form-item label="描述">
                 <el-input type="textarea" v-model="item.description"></el-input>
               </el-form-item>
@@ -96,6 +115,32 @@
               </el-form-item>
               <el-form-item>
                 <el-button type="danger" @click="model.skills.splice(i,1)">删除</el-button>
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-tab-pane>
+
+        <el-tab-pane label="最佳搭档" name="partners">
+          <el-button type="text" @click="model.partners.push({})">
+            <i class="el-icon-plus"></i> 添加英雄
+          </el-button>
+          <el-row type="flex" style="flex-wrap:wrap;">
+            <el-col :md="12" v-for="(item,i) in model.partners" :key="i">
+              <el-form-item label="名称">
+                <el-select filterable v-model="item.hero">
+                  <el-option
+                    v-for="hero in heroes"
+                    :key="hero._id"
+                    :label="hero.name"
+                    :value="hero._id"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="描述">
+                <el-input type="textarea" v-model="item.description"></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="danger" @click="model.partners.splice(i,1)">删除</el-button>
               </el-form-item>
             </el-col>
           </el-row>
@@ -118,10 +163,12 @@ export default {
         scores: {
           difficult: 0
         },
-        skills: []
+        skills: [],
+        partners: []
       },
       categories: [], //职业
-      items: [] // 出装
+      items: [], // 出装
+      heroes: []
     };
   },
   props: {
@@ -131,6 +178,7 @@ export default {
     this.id && this.fetch();
     this.fetchCategories();
     this.fetchItems();
+    this.fetchHeroes();
   },
   methods: {
     // 查询分类详情
@@ -148,6 +196,10 @@ export default {
     async fetchItems() {
       const res = await this.$http.get(`/rest/items`);
       this.items = res.data;
+    },
+    async fetchHeroes() {
+      const res = await this.$http.get(`/rest/heroes`);
+      this.heroes = res.data;
     },
     // 创建分类
     async save() {
@@ -208,5 +260,10 @@ export default {
 
 .el-rate {
   margin-top: 0.6rem;
+}
+
+.banner {
+  width: 15rem;
+  height: auto;
 }
 </style>

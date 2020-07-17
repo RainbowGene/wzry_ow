@@ -37,8 +37,6 @@ export default {
       active: 0
     };
   },
-
-  components: {},
   methods: {}
 };
 </script>

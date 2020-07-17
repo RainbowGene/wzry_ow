@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const schems = new mongoose.Schema({
   name: { type: String },
   avatar: { type: String },
+  banner: { type: String }, // 封面
   title: { type: String },
   // 有的英雄有两种职业分类，使用数组
   categories: [{ type: mongoose.SchemaTypes.ObjectId, ref: 'Category' }],
@@ -16,6 +17,8 @@ const schems = new mongoose.Schema({
   skills: [{
     icon: { type: String },
     name: { type: String },
+    delay: { type: String },
+    cost: { type: String },
     description: { type: String },
     tips: { type: String }
   }],

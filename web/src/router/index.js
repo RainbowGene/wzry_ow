@@ -8,6 +8,7 @@ const Home = () => import('@/views/home/Home')
 const Tutorial = () => import('@/views/tutorial/Tutorial')
 const Race = () => import('@/views/race/Race')
 const Defail = () => import('@/views/article/Defail')
+const HeroDetail = () => import('@/views/hero/HeroDetail')
 
 const routes = [
   {
@@ -17,7 +18,8 @@ const routes = [
       { path: '/race', name: 'home', component: Race },
       { path: '/article/:id', name: 'home', component: Defail, props: true }
     ]
-  }
+  },
+  { path: '/hero/:id', name: 'home', component: HeroDetail, props: true }
 ]
 
 const router = new VueRouter({

@@ -2,7 +2,7 @@
   <!-- 文章详情页 -->
   <div class="page-article" v-if="articleModel">
     <div class="d-flex px-2 py-3 border-bottom">
-      <div class="iconfont icon-back px-2 text-info-1" @click="$router.push(-1)"></div>
+      <div class="iconfont icon-back px-2 text-info-1" @click="$router.go(-1)"></div>
       <strong class="flex-1 fs-xl text-info-1">{{articleModel.title}}</strong>
       <div class="text-grey fs-xs pr-2">{{articleModel.createdAt | formatData}}</div>
     </div>

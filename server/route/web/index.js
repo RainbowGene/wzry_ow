@@ -128,5 +128,16 @@ module.exports = app => {
     ).limit(3)
     res.send(data)
   })
+
+  // 英雄详情
+  router.get('/hero/:id', async (req, res) => {
+    const data = await Hero.findById(req.params.id).populate('categories').lean()
+    data.related = await Hero.find().where({
+      categories: { $in: data.categories }
+    }).limit(6)
+    data.related = data.related.slice(1)
+    res.send(data)
+  })
+
   app.use('/web/api', router)
 }
